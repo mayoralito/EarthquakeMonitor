@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Pods-EarthquakeMonitor-AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-EarthquakeMonitor-MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-EarthquakeMonitor-MBXMapKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-EarthquakeMonitor.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>B235B33AA181E4E1ACF813AB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B319423EB619B85E1616117E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D238C0F402808EFD0A8414AD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F233FBAADA6603E80904A1C9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
