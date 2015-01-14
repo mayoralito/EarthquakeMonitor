@@ -11,6 +11,6 @@
 @interface ViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UITableView*     tableView;
-
+@property (nonatomic, strong) NSMutableArray*         __objData;
 @end
 

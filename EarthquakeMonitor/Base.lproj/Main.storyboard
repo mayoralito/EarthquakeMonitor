@@ -21,6 +21,33 @@
             </objects>
             <point key="canvasLocation" x="-44" y="847"/>
         </scene>
+        <!--Map View Controller-->
+        <scene sceneID="yvO-F4-ULl">
+            <objects>
+                <viewController storyboardIdentifier="MapViewController" id="1cp-ho-0vb" customClass="MapViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vNl-w0-Zws">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="LnV-Aa-G1g">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="1cp-ho-0vb" id="VaS-oQ-GI8"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="mapView" destination="LnV-Aa-G1g" id="9Sf-Lx-Gcu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tuj-N9-ZT4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="425" y="169"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="JiG-aR-ogp">
             <objects>

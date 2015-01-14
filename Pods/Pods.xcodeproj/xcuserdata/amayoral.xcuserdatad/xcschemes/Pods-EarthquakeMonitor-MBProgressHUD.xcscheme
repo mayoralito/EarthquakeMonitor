@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B319423EB619B85E1616117E"
+               BlueprintIdentifier = "AFA9FEB2DCCE0A10A57407FA"
                BuildableName = "libPods-EarthquakeMonitor-MBProgressHUD.a"
                BlueprintName = "Pods-EarthquakeMonitor-MBProgressHUD"
                ReferencedContainer = "container:Pods.xcodeproj">

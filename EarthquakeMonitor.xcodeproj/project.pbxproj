@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		0501746D9F13DE7793BB7ED9 /* libPods-EarthquakeMonitor.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 235EBC0C88CDC1D23704C929 /* libPods-EarthquakeMonitor.a */; };
+		175900091A66515F00C8C381 /* UIColor+Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 175900081A66515F00C8C381 /* UIColor+Helpers.m */; };
+		1759000E1A6651DA00C8C381 /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1759000D1A6651DA00C8C381 /* MapViewController.m */; };
+		175900131A6652C900C8C381 /* Helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 175900121A6652C900C8C381 /* Helpers.m */; };
+		175900171A665ACF00C8C381 /* FullMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 175900161A665ACF00C8C381 /* FullMapView.m */; };
 		178974881A64CDEA00AA874E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 178974871A64CDEA00AA874E /* main.m */; };
 		1789748B1A64CDEA00AA874E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1789748A1A64CDEA00AA874E /* AppDelegate.m */; };
 		1789748E1A64CDEA00AA874E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1789748D1A64CDEA00AA874E /* ViewController.m */; };
@@ -38,6 +42,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		175900071A66515F00C8C381 /* UIColor+Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Helpers.h"; sourceTree = "<group>"; };
+		175900081A66515F00C8C381 /* UIColor+Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Helpers.m"; sourceTree = "<group>"; };
+		1759000C1A6651DA00C8C381 /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
+		1759000D1A6651DA00C8C381 /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		175900111A6652C900C8C381 /* Helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helpers.h; sourceTree = "<group>"; };
+		175900121A6652C900C8C381 /* Helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Helpers.m; sourceTree = "<group>"; };
+		175900151A665ACF00C8C381 /* FullMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FullMapView.h; sourceTree = "<group>"; };
+		175900161A665ACF00C8C381 /* FullMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FullMapView.m; sourceTree = "<group>"; };
 		178974821A64CDEA00AA874E /* EarthquakeMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EarthquakeMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		178974861A64CDEA00AA874E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		178974871A64CDEA00AA874E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -95,6 +107,54 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1759000A1A6651B900C8C381 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1759000F1A6651DD00C8C381 /* Map */,
+				1759000B1A6651C800C8C381 /* List */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
+		1759000B1A6651C800C8C381 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				1789748C1A64CDEA00AA874E /* ViewController.h */,
+				1789748D1A64CDEA00AA874E /* ViewController.m */,
+			);
+			name = List;
+			sourceTree = "<group>";
+		};
+		1759000F1A6651DD00C8C381 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				1759000C1A6651DA00C8C381 /* MapViewController.h */,
+				1759000D1A6651DA00C8C381 /* MapViewController.m */,
+				175900151A665ACF00C8C381 /* FullMapView.h */,
+				175900161A665ACF00C8C381 /* FullMapView.m */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		175900101A6652B000C8C381 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				178974BD1A64D43800AA874E /* Constants.h */,
+				175900111A6652C900C8C381 /* Helpers.h */,
+				175900121A6652C900C8C381 /* Helpers.m */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		175900141A6652D100C8C381 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				175900071A66515F00C8C381 /* UIColor+Helpers.h */,
+				175900081A66515F00C8C381 /* UIColor+Helpers.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		178974791A64CDEA00AA874E = {
 			isa = PBXGroup;
 			children = (
@@ -120,12 +180,13 @@
 			children = (
 				178974891A64CDEA00AA874E /* AppDelegate.h */,
 				1789748A1A64CDEA00AA874E /* AppDelegate.m */,
-				178974BD1A64D43800AA874E /* Constants.h */,
 				178974C41A64E81300AA874E /* Models */,
 				178974B51A64D04200AA874E /* Cells */,
 				178974AB1A64CF6B00AA874E /* ViewControllers */,
 				178974AC1A64CFC500AA874E /* Storyboards */,
+				175900141A6652D100C8C381 /* Categories */,
 				178974BC1A64D3B100AA874E /* Managers */,
+				175900101A6652B000C8C381 /* Utils */,
 				178974921A64CDEA00AA874E /* Images.xcassets */,
 				178974941A64CDEA00AA874E /* LaunchScreen.xib */,
 				178974851A64CDEA00AA874E /* Supporting Files */,
@@ -162,8 +223,7 @@
 		178974AB1A64CF6B00AA874E /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				1789748C1A64CDEA00AA874E /* ViewController.h */,
-				1789748D1A64CDEA00AA874E /* ViewController.m */,
+				1759000A1A6651B900C8C381 /* Home */,
 				178974D41A656F4F00AA874E /* Detail */,
 			);
 			name = ViewControllers;
@@ -398,9 +458,13 @@
 				1789748E1A64CDEA00AA874E /* ViewController.m in Sources */,
 				1789748B1A64CDEA00AA874E /* AppDelegate.m in Sources */,
 				178974B41A64D03D00AA874E /* EarthquakeCell.m in Sources */,
+				175900171A665ACF00C8C381 /* FullMapView.m in Sources */,
 				178974881A64CDEA00AA874E /* main.m in Sources */,
+				1759000E1A6651DA00C8C381 /* MapViewController.m in Sources */,
+				175900091A66515F00C8C381 /* UIColor+Helpers.m in Sources */,
 				178974C31A64E80F00AA874E /* EarthquakeGeometry.m in Sources */,
 				178974C01A64D4C600AA874E /* EarthquakeHandler.m in Sources */,
+				175900131A6652C900C8C381 /* Helpers.m in Sources */,
 				178974BB1A64D3AD00AA874E /* APIHandler.m in Sources */,
 				178974D11A64FF0500AA874E /* DetailUIViewController.m in Sources */,
 			);

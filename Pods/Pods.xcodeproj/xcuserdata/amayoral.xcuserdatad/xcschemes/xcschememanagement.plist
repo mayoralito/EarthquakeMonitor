@@ -14,7 +14,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Pods-EarthquakeMonitor-MBXMapKit.xcscheme</key>
+		<key>Pods-EarthquakeMonitor-SVPullToRefresh.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -27,22 +27,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>B235B33AA181E4E1ACF813AB</key>
+		<key>05FEFA038763ACCF848C528A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B319423EB619B85E1616117E</key>
+		<key>55398790BA727587B25842E5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D238C0F402808EFD0A8414AD</key>
+		<key>9DB09E44B33B813F6BE2DF29</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F233FBAADA6603E80904A1C9</key>
+		<key>AFA9FEB2DCCE0A10A57407FA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

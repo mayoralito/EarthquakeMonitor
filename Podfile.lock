@@ -19,16 +19,16 @@ PODS:
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - MBProgressHUD (0.9)
-  - MBXMapKit (0.5.0)
+  - SVPullToRefresh (0.4.1)
 
 DEPENDENCIES:
   - AFNetworking (= 2.2.1)
   - MBProgressHUD (~> 0.8)
-  - MBXMapKit
+  - SVPullToRefresh
 
 SPEC CHECKSUMS:
   AFNetworking: 8dde8c8a6597ad95dac332a593c27e541bc87371
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
-  MBXMapKit: bf5bf7e44dba1b9084505e711d738e4f1ccd9927
+  SVPullToRefresh: d5161ebc833a38b465364412e5e307ca80bbb190
 
 COCOAPODS: 0.35.0

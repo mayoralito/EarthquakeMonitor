@@ -10,29 +10,36 @@
 #import "EarthquakeCell.h"
 #import "EarthquakeHandler.h"
 
+#import "Helpers.h"
 #import "EarthquakeEvent.h"
-#import "EarthquakeProp.h"
-#import "EarthquakeGeometry.h"
 
+#import "MapViewController.h"
 #import "DetailUIViewController.h"
 #import "MBProgressHUD.h"
-
-#define REFRESH_BUTTON_ID       101
+#import "UIColor+Helpers.h"
+#import "SVPullToRefresh.h"
+#import "Constants.h"
 
 @interface ViewController ()
 {
-    NSMutableArray*         __objData;
+    Helpers*                __helpers;
 }
 
 @end
 
 @implementation ViewController
 
+@synthesize __objData;
+@synthesize tableView = _tableView;
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
     self.title = @"Summary";
+    
+    __helpers = [[Helpers alloc] init];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -46,11 +53,25 @@
     // Init NSMutableArray
     __objData = [[NSMutableArray alloc] init];
     
-    // Call json-service of Earthqare
-    [self restfulServices];
+    // Call json-service of Earthquake
+    [self restfulServices:^{
+        
+    }];
     
     // UI - Add Right button
     [self addRightButton];
+    
+    // UI - Add Left button
+    [self addLeftButton];
+    
+    
+    // weak reference of our current ViewController to use with Pull to Refresh
+    __weak ViewController *weakSelf = self;
+    
+    // setup pull-to-refresh
+    [self.tableView addPullToRefreshWithActionHandler:^{
+        [weakSelf insertRowAtTop];
+    }];
     
 }
 
@@ -64,6 +85,37 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+#pragma mark -  Helpers to Pull Refresh
+- (void)insertRowAtTop {
+    __weak ViewController *weakSelf = self;
+    
+    int64_t delayInSeconds = 0.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        //[weakSelf.tableView beginUpdates];
+        // Insert handle thing...
+        //[weakSelf.__objData insertObject:[NSDate date] atIndex:0];
+        //[weakSelf.tableView insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationBottom];
+        //[weakSelf.tableView endUpdates];
+        
+        [weakSelf restfulServices:^{
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+            [weakSelf.tableView scrollToRowAtIndexPath:indexPath
+                                      atScrollPosition:UITableViewScrollPositionTop
+                                              animated:NO];
+            
+            [weakSelf.tableView.pullToRefreshView stopAnimating];
+            
+            CGRect frame = weakSelf.tableView.frame;
+            frame.origin.y = GLOBAL_HEIGHT_NAV;
+            [weakSelf.tableView setFrame:frame];
+            
+        }];
+    });
+}
+
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -85,13 +137,13 @@
     // Configuration
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    UIColor *colored = [self colorByRange:[p.properties.mag doubleValue]];
+    UIColor *colored = [UIColor colorByRange:[p.properties.mag doubleValue]];
     
     cell.backgroundColor = colored;
     
     // Custom UI
     cell.placeLabel.text = p.properties.place;
-    cell.magLabel.text = [NSString stringWithFormat:@"%f", [p.properties.mag floatValue]];
+    cell.magLabel.text = [NSString stringWithFormat:@"%0.2f", [p.properties.mag floatValue]];
     
     return cell;
 }
@@ -110,8 +162,6 @@
     // Open view controller
     DetailUIViewController *vc = [storyboard instantiateViewControllerWithIdentifier:@"DetailUIViewController"];
     
-    
-    
     //set the info
     [vc setInfoEartquake:p];
     
@@ -124,97 +174,45 @@
 
 
 #pragma mark - Helpers
-
-//
-// This helpers allows to iterate between service and put into NSObject.
-//
-- (EarthquakeEvent *)parseEarthquakeItems:(EarthquakeEvent *)p item:(NSDictionary *)item {
-    //NSLog(@"data: %@", [__data objectAtIndex:i]);
-    
-    // GEOMETRY
-    NSDictionary *geo = [item valueForKey:@"geometry"];
-    NSArray *coordinates = [geo valueForKey:@"coordinates"];
-    p.geo = [[EarthquakeGeometry alloc] init];
-    
-    p.geo.lon = [[coordinates objectAtIndex:0] doubleValue];
-    p.geo.lat = [[coordinates objectAtIndex:1] doubleValue];
-    p.geo.depth = [[coordinates objectAtIndex:2] doubleValue];
-    
-    // ID
-    p._id = [[item valueForKey:@"id"] doubleValue];
-    
-    // Properties
-    NSDictionary *properties = [item valueForKey:@"properties"];
-    p.properties = [[EarthquakeProp alloc] init];
-    
-    p.properties.place = [properties valueForKey:@"place"];
-    p.properties.mag = [properties valueForKey:@"mag"];
-    p.properties.tsunami = [properties valueForKey:@"tsunami"];
-    p.properties.alert = [properties valueForKey:@"alert"];
-    p.properties.detail = [properties valueForKey:@"detail"];
-    
-    p.properties.code = [properties valueForKey:@"code"];
-    p.properties.time = [properties valueForKey:@"time"];
-    p.properties.type = [properties valueForKey:@"type"];
-    p.properties.updated = [properties valueForKey:@"updated"];
-    p.properties.title = [properties valueForKey:@"title"];
-    
-    
-    // TYPE
-    p.type = [item valueForKey:@"type"];
-    
-    return p;
-}
-
-- (UIColor *)colorByRange:(NSInteger )number{
-    
-    UIColor *colour = [UIColor colorWithRed:0.0f
-                                      green:153.0f
-                                       blue:0.0f alpha:1];
-    
-    if(number > 2) {
-        colour = [UIColor colorWithRed:76.0f
-                                 green:153.0f
-                                  blue:0.0f alpha:1];
-    }else if(number > 4) {
-        colour = [UIColor colorWithRed:153.0f
-                                 green:153.0f
-                                  blue:0.0f alpha:1];
-    }else if(number > 6) {
-        colour = [UIColor colorWithRed:202.0f
-                                 green:204.0f
-                                  blue:0.0f alpha:1];
-    }else if(number > 8) {
-        colour = [UIColor colorWithRed:153.0f
-                                 green:76.0f
-                                  blue:0.0f alpha:1];
-    }else if(number > 9) {
-        colour = [UIColor colorWithRed:155.0f
-                                 green:0.0f
-                                  blue:0.0f alpha:1];
-    }
-    
-        
-    return colour;
-}
-
 - (void)addRightButton {
     UIBarButtonItem * doneButton = [[UIBarButtonItem alloc]
                                     initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
                                     target:self
-                                    action:@selector(restfulServices)];
+                                    action:@selector(callFromButtonRefresh)];
     
-    [doneButton setTag:REFRESH_BUTTON_ID];
     self.navigationItem.rightBarButtonItem = doneButton;
 }
 
-- (void)restfulServices {
+- (void)addLeftButton {
+    UIBarButtonItem * doneButton = [[UIBarButtonItem alloc]
+                                    initWithBarButtonSystemItem:UIBarButtonSystemItemAction
+                                    target:self
+                                    action:@selector(switchView)];
+    
+    self.navigationItem.leftBarButtonItem = doneButton;
+}
+
+- (void)switchView {
+    UIStoryboard *storyboard = self.navigationController.storyboard;
+    MapViewController* vc = [storyboard instantiateViewControllerWithIdentifier:@"MapViewController"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)callFromButtonRefresh {
+    // Call json-service of Earthquake
+    [self restfulServices:^{
+        
+    }];
+}
+
+- (void)restfulServices:(void (^)(void))customAction {
+    //void (^APIRequestSuccess) (NSDictionary * data, NSHTTPURLResponse *urlResponse)
     
     __objData = [[NSMutableArray alloc] init];
     
     //main thread
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+    //dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
        
         // Request to server server
         [EarthquakeHandler getFeedSummary:@"summary/all_hour.geojson" success:^(NSDictionary *data, NSHTTPURLResponse *urlResponse) {
@@ -222,13 +220,10 @@
             NSArray *__data = [data valueForKey:@"features"];
             for(int i = 0; i < [__data count]; i ++) {
                 NSDictionary *item = [__data objectAtIndex:i];
-                EarthquakeEvent *p = [[EarthquakeEvent alloc] init];
                 
-                // Parse our Dictionary into a NSObject
-                p = [self parseEarthquakeItems:p item:item];
-                
-                // Set objetct into array
-                [__objData addObject:p];
+                //
+                // Parse our Dictionary into a NSObject and set objetct into array
+                [__objData addObject:[__helpers parseEarthquakeItems:item]];
                 
             }
             
@@ -236,25 +231,26 @@
             [_tableView reloadData];
             
             //back to the main thread for the UI call
-            dispatch_async(dispatch_get_main_queue(), ^{
+            //dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-            });
+                if(customAction){
+                    customAction();
+                }
+            //});
             
             
         } fail:^(NSDictionary *data, NSHTTPURLResponse *urlResponse) {
             NSLog(@"Fail: %@ \n at url response: %@", data, urlResponse);
             
             
-            dispatch_async(dispatch_get_main_queue(), ^{
+            //dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:self.view animated:YES];
-            });
+            //});
             
         }];
         
         
-    });
-    
-    
+    //});
     
 }
 

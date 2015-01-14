@@ -13,7 +13,7 @@
 #import "EarthquakeLocation.h"
 #import "MBProgressHUD.h"
 
-#define METERS_PER_MILE 1609.344
+#define METERS_PER_MILE 11609.344
 #define KMS_MILES_DIFF  0.62137
 
 @implementation DetailUIViewController
@@ -78,7 +78,7 @@
             annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
             annotationView.enabled = YES;
             annotationView.canShowCallout = YES;
-            //annotationView.image = [UIImage imageNamed:@"arrest.png"];//here we use a nice image instead of the default pins
+            //annotationView.image = [UIImage imageNamed:@"pin.png"]; // custom pin image...
         } else {
             annotationView.annotation = annotation;
         }
@@ -257,9 +257,9 @@
         if (decimalDegrees.doubleValue < 0) { direction = @"S"; } else { direction = @"N"; }
         return [NSString stringWithFormat:@"%i° %i' %.2f\" %@", abs(degrees.intValue), abs(minutes.intValue), fabs(seconds.doubleValue), direction];
     } else {
-        NSLog(@"%f", decimalDegrees.doubleValue);
+        //NSLog(@"%f", decimalDegrees.doubleValue);
         if (decimalDegrees.doubleValue < 0) { direction = @"W"; } else { direction = @"E"; }
-        NSLog(@"%@", direction);
+        //NSLog(@"%@", direction);
         return [NSString stringWithFormat:@"%i° %i' %.2f\" %@", abs(degrees.intValue), abs(minutes.intValue), fabs(seconds.doubleValue), direction];
     }
 }
