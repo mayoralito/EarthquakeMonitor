@@ -101,11 +101,6 @@
         
         [weakSelf restfulServices:^{
             
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
-            [weakSelf.tableView scrollToRowAtIndexPath:indexPath
-                                      atScrollPosition:UITableViewScrollPositionTop
-                                              animated:NO];
-            
             [weakSelf.tableView.pullToRefreshView stopAnimating];
             
             CGRect frame = weakSelf.tableView.frame;
