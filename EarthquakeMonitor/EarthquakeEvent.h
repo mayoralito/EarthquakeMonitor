@@ -12,9 +12,13 @@
 
 @interface EarthquakeEvent : NSObject
 
+/** EarthquakeProp instance */
 @property (nonatomic, strong) EarthquakeProp        *properties;
+/** EarthquakeGeometry instance */
 @property (nonatomic, strong) EarthquakeGeometry    *geo;
+/** ID of FeatureCollection */
 @property (nonatomic, readwrite) NSInteger          _id;
+/** Type of FeatureCollection */
 @property (nonatomic, readwrite) NSString           *type;
 
 @end

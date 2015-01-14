@@ -217,12 +217,12 @@
 		178974C81A64EA5400AA874E /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				178974CC1A64ECB900AA874E /* EarthquakeEvent.h */,
+				178974CD1A64ECB900AA874E /* EarthquakeEvent.m */,
 				178974C11A64E80F00AA874E /* EarthquakeGeometry.h */,
 				178974C21A64E80F00AA874E /* EarthquakeGeometry.m */,
 				178974C91A64EB2500AA874E /* EarthquakeProp.h */,
 				178974CA1A64EB2500AA874E /* EarthquakeProp.m */,
-				178974CC1A64ECB900AA874E /* EarthquakeEvent.h */,
-				178974CD1A64ECB900AA874E /* EarthquakeEvent.m */,
 			);
 			name = Events;
 			sourceTree = "<group>";

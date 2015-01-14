@@ -4,7 +4,6 @@
 target 'EarthquakeMonitor' do
 pod 'AFNetworking', '2.2.1'
 pod 'MBProgressHUD', '~> 0.8'
-pod 'MBXMapKit'
 end
 
 target 'EarthquakeMonitorTests' do

@@ -28,11 +28,19 @@ static id shared;
     return self;
 }
 
-+ (void)getFeedSumary:(NSString *)api_url success:(APIRequestSuccess)success fail:(APIRequestFail)fail {
-    [[self sharedInstance] getFeedSumary:api_url success:success fail:fail];
++ (void)getFeedSummary:(NSString *)api_url success:(APIRequestSuccess)success fail:(APIRequestFail)fail {
+    [[self sharedInstance] getRequest:api_url success:success fail:fail];
 }
 
-- (void)getFeedSumary:(NSString *)api_url success:(APIRequestSuccess)success fail:(APIRequestFail)fail{
++ (void)getDetailSummary:(NSString *)api_url success:(APIRequestSuccess)success fail:(APIRequestFail)fail {
+    [[self sharedInstance] getRequest:api_url success:success fail:fail];
+}
+
++ (void)getNearbyCities:(NSString *)api_url success:(APIRequestSuccess)success fail:(APIRequestFail)fail {
+    [[self sharedInstance] getRequest:api_url success:success fail:fail];
+}
+
+- (void)getRequest:(NSString *)api_url success:(APIRequestSuccess)success fail:(APIRequestFail)fail{
     
     [self get:api_url
        params:nil

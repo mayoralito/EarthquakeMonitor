@@ -12,7 +12,7 @@
 
 @property (nonatomic, readwrite) double     lat;
 @property (nonatomic, readwrite) double     lon;
-@property (nonatomic, readwrite) double     other;
+@property (nonatomic, readwrite) double     depth;
 @property (nonatomic, readwrite) NSString   *type;
 
 @end

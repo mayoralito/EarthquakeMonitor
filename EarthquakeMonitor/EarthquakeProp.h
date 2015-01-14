@@ -10,33 +10,26 @@
 
 @interface EarthquakeProp : NSObject
 
+/** String to alert app if has a real-time catastrofe (i guess) */
 @property (nonatomic, strong) NSString      *alert;
-@property (nonatomic, strong) NSString      *cdi;
+/** code of event. */
 @property (nonatomic, strong) NSString      *code;
+/** url for detail API */
 @property (nonatomic, strong) NSString      *detail;
-@property (nonatomic, strong) NSString      *dmin;
-@property (nonatomic, strong) NSString      *felt;
-@property (nonatomic, strong) NSString      *gap;
-@property (nonatomic, strong) NSString      *ids;
-
 /** Magnitud of hearthquake */
 @property (nonatomic, strong) NSString      *mag;
-@property (nonatomic, strong) NSString      *magType;
-@property (nonatomic, strong) NSString      *mmi;
-@property (nonatomic, strong) NSString      *net;
-@property (nonatomic, strong) NSString      *nst;
+/** Place of earthquake happen */
 @property (nonatomic, strong) NSString      *place;
-@property (nonatomic, strong) NSString      *rms;
-@property (nonatomic, strong) NSString      *sig;
-@property (nonatomic, strong) NSString      *source;
-@property (nonatomic, strong) NSString      *status;
+/** unixtime when earthquake happen */
 @property (nonatomic, strong) NSString      *time;
-@property (nonatomic, strong) NSString      *title;
-@property (nonatomic, strong) NSString      *tsunami;
-@property (nonatomic, strong) NSString      *type;
-@property (nonatomic, strong) NSString      *types;
-@property (nonatomic, strong) NSString      *tz;
+/** unixtime when earthquake happen stored in the server */
 @property (nonatomic, strong) NSString      *updated;
-@property (nonatomic, strong) NSString      *url;
+/** Title of event */
+@property (nonatomic, strong) NSString      *title;
+/** Tsunami string to indicate... */
+@property (nonatomic, strong) NSString      *tsunami;
+/** Type of event... */
+@property (nonatomic, strong) NSString      *type;
+
 
 @end

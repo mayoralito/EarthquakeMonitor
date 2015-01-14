@@ -21,7 +21,6 @@
 
 @interface ViewController ()
 {
-    EarthquakeHandler*      __manager;
     NSMutableArray*         __objData;
 }
 
@@ -39,6 +38,7 @@
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.rowHeight = 70.0f;
+    
     // Register NIB
     [_tableView registerNib:[UINib nibWithNibName:@"EarthquakeCell" bundle:[NSBundle mainBundle]]
      forCellReuseIdentifier:[EarthquakeCell reuseIdentifier]];
@@ -138,7 +138,7 @@
     
     p.geo.lon = [[coordinates objectAtIndex:0] doubleValue];
     p.geo.lat = [[coordinates objectAtIndex:1] doubleValue];
-    p.geo.other = [[coordinates objectAtIndex:2] doubleValue];
+    p.geo.depth = [[coordinates objectAtIndex:2] doubleValue];
     
     // ID
     p._id = [[item valueForKey:@"id"] doubleValue];
@@ -147,32 +147,18 @@
     NSDictionary *properties = [item valueForKey:@"properties"];
     p.properties = [[EarthquakeProp alloc] init];
     
-    p.properties.mag = [properties valueForKey:@"mag"];
-    
-    p.properties.alert = [properties valueForKey:@"alert"];
-    p.properties.cdi = [properties valueForKey:@"cdi"];
-    p.properties.code = [properties valueForKey:@"code"];
-    p.properties.detail = [properties valueForKey:@"detail"];
-    //            p.properties.dmin = [properties valueForKey:@"dmin"];
-    p.properties.felt = [properties valueForKey:@"felt"];
-    p.properties.gap = [properties valueForKey:@"gap"];
-    p.properties.ids = [properties valueForKey:@"ids"];
-    p.properties.magType = [properties valueForKey:@"magType"];
-    p.properties.mmi = [properties valueForKey:@"mmi"];
-    p.properties.net = [properties valueForKey:@"net"];
-    p.properties.nst = [properties valueForKey:@"nst"];
     p.properties.place = [properties valueForKey:@"place"];
-    p.properties.rms = [properties valueForKey:@"rms"];
-    p.properties.sig = [properties valueForKey:@"sig"];
-    p.properties.source = [properties valueForKey:@"source"];
-    p.properties.status = [properties valueForKey:@"status"];
-    p.properties.time = [properties valueForKey:@"time"];
+    p.properties.mag = [properties valueForKey:@"mag"];
     p.properties.tsunami = [properties valueForKey:@"tsunami"];
+    p.properties.alert = [properties valueForKey:@"alert"];
+    p.properties.detail = [properties valueForKey:@"detail"];
+    
+    p.properties.code = [properties valueForKey:@"code"];
+    p.properties.time = [properties valueForKey:@"time"];
     p.properties.type = [properties valueForKey:@"type"];
-    p.properties.types = [properties valueForKey:@"types"];
-    p.properties.tz = [properties valueForKey:@"tz"];
     p.properties.updated = [properties valueForKey:@"updated"];
-    p.properties.url = [properties valueForKey:@"url"];
+    p.properties.title = [properties valueForKey:@"title"];
+    
     
     // TYPE
     p.type = [item valueForKey:@"type"];
@@ -231,51 +217,44 @@
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
        
         // Request to server server
-        [EarthquakeHandler getFeedSumary:@"summary/all_hour.geojson"
-                                 success:^(NSDictionary *data, NSHTTPURLResponse *urlResponse) {
-                                     
-                                     NSLog(@"data: %@", [data valueForKey:@"metadata"]);
-                                     
-                                     NSArray *__data = [data valueForKey:@"features"];
-                                     for(int i = 0; i < [__data count]; i ++) {
-                                         NSDictionary *item = [__data objectAtIndex:i];
-                                         EarthquakeEvent *p = [[EarthquakeEvent alloc] init];
-                                         
-                                         // Parse our Dictionary into a NSObject
-                                         p = [self parseEarthquakeItems:p item:item];
-                                         
-                                         // Set objetct into array
-                                         [__objData addObject:p];
-                                         
-                                     }
-                                     
-                                     // Reload data on tableview!
-                                     [_tableView reloadData];
-                                     
-                                     //back to the main thread for the UI call
-                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                         [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                     });
-                                     
-                                     
-                                 } fail:^(NSDictionary *data, NSHTTPURLResponse *urlResponse) {
-                                     NSLog(@"Fail: %@ \n at url response: %@", data, urlResponse);
-                                     
-                                     
-                                     dispatch_async(dispatch_get_main_queue(), ^{
-                                         [MBProgressHUD hideHUDForView:self.view animated:YES];
-                                     });
-                                     
-                                 }];
+        [EarthquakeHandler getFeedSummary:@"summary/all_hour.geojson" success:^(NSDictionary *data, NSHTTPURLResponse *urlResponse) {
+            
+            NSArray *__data = [data valueForKey:@"features"];
+            for(int i = 0; i < [__data count]; i ++) {
+                NSDictionary *item = [__data objectAtIndex:i];
+                EarthquakeEvent *p = [[EarthquakeEvent alloc] init];
+                
+                // Parse our Dictionary into a NSObject
+                p = [self parseEarthquakeItems:p item:item];
+                
+                // Set objetct into array
+                [__objData addObject:p];
+                
+            }
+            
+            // Reload data on tableview!
+            [_tableView reloadData];
+            
+            //back to the main thread for the UI call
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+            
+            
+        } fail:^(NSDictionary *data, NSHTTPURLResponse *urlResponse) {
+            NSLog(@"Fail: %@ \n at url response: %@", data, urlResponse);
+            
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+            
+        }];
         
         
     });
     
     
-    
-}
-
-- (void)doSpinner {
     
 }
 
